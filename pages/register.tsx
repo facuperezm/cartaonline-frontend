@@ -22,8 +22,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { redirect } from "next/dist/server/api-utils";
+import { useRouter } from "next/router";
 
-interface Company {
+export interface Company {
   companyName: string;
   name: string;
   lastName: string;
@@ -87,6 +89,7 @@ const registerFormSchema = z.object({
 });
 
 export default function Register() {
+  const router = useRouter();
   const dataForm = useForm<z.infer<typeof registerFormSchema>>({
     resolver: zodResolver(registerFormSchema),
     defaultValues: {
@@ -102,11 +105,19 @@ export default function Register() {
   });
 
   function onSubmit(values: z.infer<typeof registerFormSchema>) {
-    const res = axios.post(
-      env.NEXT_PUBLIC_BACKEND_BASE_URL + "/api/dashboard",
-      values
-    );
-    console.log(res);
+    axios
+      .post(env.NEXT_PUBLIC_BACKEND_BASE_URL + "/api/dashboard", values)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        router.push("/").catch((err) => {
+          console.log(err);
+        });
+      });
   }
 
   return (
@@ -167,6 +178,38 @@ export default function Register() {
             />
             <FormField
               control={dataForm.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input {...field} />
+                  </FormControl>
+                  {/* <FormDescription>
+                    This is your public display name.
+                  </FormDescription> */}
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={dataForm.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input placeholder="very secret password" {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    This is your public display name.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={dataForm.control}
               name="category"
               render={({ field }) => (
                 <FormItem>
@@ -212,7 +255,20 @@ export default function Register() {
                 </FormItem>
               )}
             />
-
+            <FormField
+              control={dataForm.control}
+              name="phoneNumber"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Phone number</FormLabel>
+                  <FormControl>
+                    <Input placeholder="3757 444444" {...field} />
+                  </FormControl>
+                  <FormDescription>Aca pone tu numerito</FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={dataForm.control}
               name="location"
@@ -227,37 +283,6 @@ export default function Register() {
                 </FormItem>
               )}
             />
-            <FormField
-              control={dataForm.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input placeholder="very secret password" {...field} />
-                  </FormControl>
-                  <FormDescription></FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={dataForm.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input placeholder="very secret password" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    This is your public display name.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
             <Button onClick={dataForm.handleSubmit(onSubmit)} type="submit">
               Submit
             </Button>

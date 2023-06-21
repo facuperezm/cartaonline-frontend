@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Button } from "@/components/ui/button";
 import {
@@ -13,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { env } from "@/env.mjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -26,6 +29,8 @@ const formSchema = z.object({
 });
 
 export default function Login() {
+  const router = useRouter();
+
   const formData = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -35,11 +40,14 @@ export default function Login() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    const res = axios.post(
-      env.NEXT_PUBLIC_BACKEND_BASE_URL + "/api/users/auth",
-      values
-    );
-    console.log(res);
+    axios
+      .post(env.NEXT_PUBLIC_BACKEND_BASE_URL + "/api/users/auth", values)
+      .then(({ data }) => {
+        const tokenPayload = data.data;
+        localStorage.setItem("user", JSON.stringify(tokenPayload));
+        void router.push("/");
+      })
+      .catch((error) => console.log(error));
   }
 
   return (

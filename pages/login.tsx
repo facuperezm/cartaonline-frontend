@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { env } from "@/env.mjs";
+import useAuth from "@/hooks/useAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -29,6 +30,7 @@ const formSchema = z.object({
 });
 
 export default function Login() {
+  const { setUser } = useAuth();
   const router = useRouter();
 
   const formData = useForm<z.infer<typeof formSchema>>({
@@ -41,10 +43,11 @@ export default function Login() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     axios
-      .post(env.NEXT_PUBLIC_BACKEND_BASE_URL + "/api/users/auth", values)
+      .post(env.NEXT_PUBLIC_BACKEND_BASE_URL + "/api/users/login", values)
       .then(({ data }) => {
-        const tokenPayload = data.data;
+        const tokenPayload = data;
         localStorage.setItem("user", JSON.stringify(tokenPayload));
+        setUser(tokenPayload);
         void router.push("/");
       })
       .catch((error) => console.log(error));

@@ -37,13 +37,7 @@ export default function Home() {
         <p className="leading-7 [&:not(:first-child)]:mt-6"></p>
         <div>
           <h2>Locales</h2>
-          <ul>
-            {companies.map((company) => (
-              <li key={company.id}>
-                <Link href={`/company/${company.id}`}>{company.name}</Link>
-              </li>
-            ))}
-          </ul>
+          <ul></ul>
         </div>
       </main>
     </>

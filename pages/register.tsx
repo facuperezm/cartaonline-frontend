@@ -22,7 +22,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/router";
 
 export interface Company {

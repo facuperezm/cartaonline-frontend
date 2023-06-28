@@ -4,9 +4,11 @@ import React from "react";
 import axios from "axios";
 import { type Company } from "./register";
 import Link from "next/link";
+import { AuthContext } from "@/components/global/AuthProvider";
 
 export default function Home() {
   const [companies, setCompanies] = React.useState<Company[]>([]);
+  const { user } = React.useContext(AuthContext);
 
   React.useEffect(() => {
     axios
@@ -37,6 +39,7 @@ export default function Home() {
         <p className="leading-7 [&:not(:first-child)]:mt-6"></p>
         <div>
           <h2>Locales</h2>
+          <h3>{user}</h3>
           <ul></ul>
         </div>
       </main>

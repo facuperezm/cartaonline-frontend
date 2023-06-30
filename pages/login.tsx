@@ -43,12 +43,14 @@ export default function Login() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     axios
-      .post(env.NEXT_PUBLIC_BACKEND_BASE_URL + "/api/users/login", values)
+      .post(env.NEXT_PUBLIC_BACKEND_BASE_URL + "/users/login", values, {
+        withCredentials: true,
+      })
       .then(({ data }) => {
         const tokenPayload = data;
-        localStorage.setItem("user", JSON.stringify(tokenPayload));
         setUser(tokenPayload);
-        void router.push("/");
+        localStorage.setItem("user", JSON.stringify(tokenPayload));
+        router.push("/");
       })
       .catch((error) => console.log(error));
   }

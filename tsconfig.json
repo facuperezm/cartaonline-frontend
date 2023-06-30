@@ -6,6 +6,10 @@
     "checkJs": true,
     "skipLibCheck": true,
     "strict": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "noUnusedParameters": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -18,22 +22,16 @@
     "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "~/*": ["./src/*"]
     }
   },
   "include": [
     ".eslintrc.cjs",
-    "next-env.d.ts",
-    "**/*.ts",
+    "next-env.d",
+    "**/*",
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs"
   ],
-  "exclude": ["node_modules"],
-  "rules": {
-    "@typescript-eslint/no-unused-vars": "off",
-    "@typescript-eslint/no-unsafe-assignment": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off"
-  }
+  "exclude": ["node_modules"]
 }

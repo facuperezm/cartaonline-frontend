@@ -56,9 +56,12 @@ export default function Login() {
   }
 
   return (
-    <>
+    <div className="align-center flex w-full justify-center">
       <Form {...formData}>
-        <form onSubmit={formData.handleSubmit(onSubmit)} className="space-y-8">
+        <form
+          onSubmit={formData.handleSubmit(onSubmit)}
+          className="space-y-8 rounded-md border p-6 shadow-md"
+        >
           <FormField
             control={formData.control}
             name="email"
@@ -98,6 +101,6 @@ export default function Login() {
           <Button type="submit">Submit</Button>
         </form>
       </Form>
-    </>
+    </div>
   );
 }

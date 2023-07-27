@@ -7,7 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { TokenPayload } from "schemas/AuthSchema";
+import { TokenPayload } from "@/schemas/AuthSchema";
 
 export interface IAuthContext {
   user: TokenPayload;

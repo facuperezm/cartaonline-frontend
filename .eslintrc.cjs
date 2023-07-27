@@ -55,6 +55,8 @@ const config = {
     "no-unsafe-return": "off",
     "no-unsafe-member-access": "off",
     "no-unsafe-call": "off",
+    "no-unsafe-argument": "off",
+    "exhaustive-deps": "off",
   },
 };
 

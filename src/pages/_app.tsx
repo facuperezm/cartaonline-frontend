@@ -1,6 +1,6 @@
 import { type AppType } from "next/dist/shared/lib/utils";
 import "@/styles/globals.css";
-import { AuthProvider } from "components/global/AuthProvider";
+import { AuthProvider } from "@/components/global/AuthProvider";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();

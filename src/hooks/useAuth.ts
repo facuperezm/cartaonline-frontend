@@ -1,4 +1,7 @@
-import { AuthContext, type IAuthContext } from "components/global/AuthProvider";
+import {
+  AuthContext,
+  type IAuthContext,
+} from "@/components/global/AuthProvider";
 import { useContext } from "react";
 
 const useAuth = () => {

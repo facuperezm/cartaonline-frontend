@@ -6,13 +6,10 @@ export const env = createEnv({
     NODE_ENV: z.enum(["development", "test", "production"]),
   },
 
-  client: {
-    NEXT_PUBLIC_BACKEND_BASE_URL: z.string().min(1),
-  },
+  client: {},
 
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
-    NEXT_PUBLIC_BACKEND_BASE_URL: process.env.NEXT_PUBLIC_BACKEND_BASE_URL,
   },
 
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,
